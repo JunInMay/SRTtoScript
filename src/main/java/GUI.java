@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -12,7 +11,7 @@ public class GUI extends JFrame {
         setTitle("Frame Test");
         logic = l;
 
-        getContentPane().add(openButton());
+        getContentPane().add(buttonFileChoose());
     }
 
     public void engage () {
@@ -20,9 +19,9 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    public JButton openButton () {
-        JButton openButton = new JButton("Open");
-        openButton.addActionListener(new ActionListener() {
+    public JButton buttonFileChoose() {
+        JButton fileChooseButton = new JButton("Open");
+        fileChooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
@@ -33,7 +32,7 @@ public class GUI extends JFrame {
                 }
             }
         });
-        return openButton;
+        return fileChooseButton;
     }
 
 
