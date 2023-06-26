@@ -8,9 +8,20 @@ import java.util.List;
 import java.util.Properties;
 
 public class Logic {
-    static void logic () {
-        File srtFile = new File("testFiles/[English] I'm a Gay Pastor. Ask Me Anything [DownSub.com].srt");
 
+    private File srtFile;
+    private static String filePath = "testFileLocation\\test.txt";
+
+    void readFile(File file) {
+        srtFile = file;
+    }
+
+    /**
+     * @Author Chana
+     * @Description
+     * main logic for refining and discerning sentences from an .srt file
+     */
+    List discernSentence() {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -50,13 +61,16 @@ public class Logic {
         }
 
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
+        return sentences;
+    }
 
-        /*
-        make file
-         */
-
+    /**
+     * @Author Chana
+     * @Description
+     * make Files that will contain the texts from the .srt file.
+     */
+    void makeFile() {
         // set the file path
-        String filePath = "testFileLocation\\test.txt";
         try {
             File file = new File(filePath);
             if (file.createNewFile()) {
@@ -67,6 +81,11 @@ public class Logic {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void logic() {
+        List<CoreMap> sentences = discernSentence();
+        makeFile();
 
         /*
         write the string to the file made before
