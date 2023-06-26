@@ -11,17 +11,25 @@ public class Logic {
 
     private File srtFile;
     private static String filePath = "testFileLocation\\test.txt";
+    private File txtFile;
+    private String content;
 
-    void readFile(File file) {
+    public void readFile(File file) {
+        content = null;
+        txtFile = null;
         srtFile = file;
     }
 
     /**
-     * @Author Chana
-     * @Description
+     * @author Chana
+     * @description
      * main logic for refining and discerning sentences from an .srt file
+     * refine timestamps and indexes and also discern sentences in the .srt File
+     * return String as a result
+     *
+     * @return String
      */
-    List discernSentence() {
+    String discernSentence () {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -52,7 +60,6 @@ public class Logic {
                 // put together in just one string
                 text.append(line).append(' ');
             }
-
             document = new Annotation(text.toString());
             pipeline.annotate(document);
 
@@ -61,20 +68,20 @@ public class Logic {
         }
 
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-        return sentences;
+        return constructContent(sentences);
     }
 
     /**
-     * @Author Chana
-     * @Description
-     * make Files that will contain the texts from the .srt file.
+     * @author Chana
+     * @description
+     * makes Files that will contain the texts which were from the .srt file.
      */
-    void makeFile() {
+    void makeFile () {
         // set the file path
         try {
-            File file = new File(filePath);
-            if (file.createNewFile()) {
-                System.out.println("File created : " + file.getName());
+            txtFile = new File(filePath);
+            if (txtFile.createNewFile()) {
+                System.out.println("File created : " + txtFile.getName());
             } else {
                 System.out.println("File creation failed");
             }
@@ -83,22 +90,29 @@ public class Logic {
         }
     }
 
-    void logic() {
-        List<CoreMap> sentences = discernSentence();
+    /**
+     * @author Chana
+     * @description
+     * constructs an actual contents of strings for the result file
+     * - configure member variable "content" in this class
+     *
+     * @return content
+     */
+    private String constructContent(List<CoreMap> sentences) {
+        StringBuilder sb = new StringBuilder();
+        for (CoreMap sentence : sentences) {
+            sb.append(sentence).append('\n');
+        }
+        content = sb.toString();
+
+        return content;
+    }
+
+    void logic () {
+        discernSentence();
         makeFile();
 
-        /*
-        write the string to the file made before
-         */
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
-            StringBuilder sb = new StringBuilder();
-            for (CoreMap sentence : sentences) {
-                sb.append(sentence).append('\n');
-            }
-            fileWriter.write(sb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }

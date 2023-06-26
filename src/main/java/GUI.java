@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -7,11 +8,13 @@ public class GUI extends JFrame {
     private Logic logic;
 
     public GUI(Logic l) {
-        setSize(500, 150);
+        setSize(700, 700);
         setTitle("Frame Test");
+        setLayout(new FlowLayout());
         logic = l;
 
         getContentPane().add(buttonFileChoose());
+        getContentPane().add(buttonExecute());
     }
 
     public void engage () {
@@ -19,8 +22,9 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    public JButton buttonFileChoose() {
+    public JButton buttonFileChoose () {
         JButton fileChooseButton = new JButton("Open");
+        fileChooseButton.setPreferredSize(new Dimension(50, 50));
         fileChooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,5 +39,17 @@ public class GUI extends JFrame {
         return fileChooseButton;
     }
 
+    public JButton buttonExecute () {
+        JButton executeButton = new JButton("Execute");
+        executeButton.setPreferredSize(new Dimension(50, 50));
+        executeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(logic.discernSentence());
+            }
+        });
+
+        return executeButton;
+    }
 
 }
