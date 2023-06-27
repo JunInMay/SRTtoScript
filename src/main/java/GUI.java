@@ -6,6 +6,10 @@ import java.io.*;
 
 public class GUI extends JFrame {
     private Logic logic;
+    private File selectedFile;
+    private static String filePath = "testFileLocation";
+    private static String fileName = "test";
+    private static String extension = ".txt";
 
     public GUI(Logic l) {
         setSize(700, 700);
@@ -15,6 +19,7 @@ public class GUI extends JFrame {
 
         getContentPane().add(buttonFileChoose());
         getContentPane().add(buttonExecute());
+        getContentPane().add(buttonFileGenerate());
     }
 
     public void engage () {
@@ -31,8 +36,7 @@ public class GUI extends JFrame {
                 JFileChooser fileChooser = new JFileChooser();
                 int returnValue = fileChooser.showOpenDialog(null);
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    logic.readFile(selectedFile);
+                    selectedFile = fileChooser.getSelectedFile();
                 }
             }
         });
@@ -45,11 +49,24 @@ public class GUI extends JFrame {
         executeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(logic.discernSentence());
+                System.out.println(logic.discernSentence(selectedFile));
             }
         });
 
         return executeButton;
+    }
+
+    public JButton buttonFileGenerate () {
+        JButton generateButton = new JButton("Generate");
+        generateButton.setPreferredSize(new Dimension(50, 50));
+        generateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                logic.makeFile(filePath, fileName, extension);
+            }
+        });
+
+        return generateButton;
     }
 
 }

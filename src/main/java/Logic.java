@@ -6,20 +6,10 @@ import edu.stanford.nlp.util.CoreMap;
 import java.io.*;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Logic {
-
-    private File srtFile;
-    private static String filePath = "testFileLocation\\test.txt";
-    private File txtFile;
-    private String content;
-
-    public void readFile(File file) {
-        content = null;
-        txtFile = null;
-        srtFile = file;
-    }
-
     /**
      * @author Chana
      * @description
@@ -29,7 +19,7 @@ public class Logic {
      *
      * @return String
      */
-    String discernSentence () {
+    String discernSentence (File srtFile) {
         Properties props = new Properties();
         props.setProperty("annotators", "tokenize, ssplit");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -75,11 +65,30 @@ public class Logic {
      * @author Chana
      * @description
      * makes Files that will contain the texts which were from the .srt file.
+     * - if the filename exists, then generate next name adding '_number' at the end of the file's name. (Ex. test.txt --> test_1.txt)
      */
-    void makeFile () {
+    void makeFile (String filePath, String fileName, String extension) {
+        String filePathWithName = new StringBuilder()
+                .append(filePath)
+                .append('\\')
+                .append(fileName)
+                .append(extension)
+                .toString();
+
         // set the file path
         try {
-            txtFile = new File(filePath);
+            File txtFile = new File(filePathWithName);
+            if (txtFile.exists()) {
+                String nextFileName = getNextFileName(filePath, fileName, extension);
+                filePathWithName = new StringBuilder()
+                        .append(filePath)
+                        .append('\\')
+                        .append(nextFileName)
+                        .append(extension)
+                        .toString();
+                txtFile = new File(filePathWithName);
+            }
+
             if (txtFile.createNewFile()) {
                 System.out.println("File created : " + txtFile.getName());
             } else {
@@ -88,6 +97,54 @@ public class Logic {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @author Chana
+     * @param filePath
+     * @param fileName
+     * @param extension
+     * @description
+     * if a file to make already exists, then it makes the next file name.
+     * note that it doesn't make actual file, it just generates the next name.
+     * if a file 'test.txt' exists in the directory, then it makes 'test_1.txt'.
+     * if two file of 'test.txt' and 'test_100.txt' exists, then it makes 'test_2.txt' for its name.
+     *
+     * @return newFileName
+     */
+    private String getNextFileName (String filePath, String fileName, String extension) {
+        File directory = new File(filePath);
+
+        File[] files = directory.listFiles();
+
+        int max = 0;
+        Pattern pattern = Pattern.compile(fileName + "_(\\d+)" + extension);
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    String name = file.getName();
+                    Matcher matcher = pattern.matcher(name);
+
+                    if (matcher.matches()) {
+                        int number = Integer.parseInt(matcher.group(1));
+                        if (number > max) {
+                            max = number;
+                        }
+                    }
+                }
+            }
+        }
+
+        int nextNumber = max + 1;
+
+        String newFileName = new StringBuilder()
+                .append(fileName)
+                .append('_')
+                .append(nextNumber)
+                .toString();
+
+        return newFileName;
     }
 
     /**
@@ -103,15 +160,14 @@ public class Logic {
         for (CoreMap sentence : sentences) {
             sb.append(sentence).append('\n');
         }
-        content = sb.toString();
 
-        return content;
+        return sb.toString();
     }
 
     void logic () {
-        discernSentence();
-        makeFile();
-
+//        discernSentence();
+//        makeFile();
+//
 
     }
 
