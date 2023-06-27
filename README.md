@@ -44,14 +44,17 @@ I wanted to be a police officer.
 And so I always joke when I'm preaching that I got the peas mixed up.
 ```
 
+# Features
+- make pure .srt file into .txt file containing sentences only
+- more will be written later
+
 # Logic
 1. Read an .srt file
 2. Remove the indexes and timestamps from the original file.
 3. Utilize the StanfordCoreNLP library to identify sentences and consolidate the words together.
 
 # Todo
-1. make String into a .txt file
-2. make some UIs for the application.
+1. make some UIs for the application.
 
 # Libraries
 - StanfordCoreNLP
