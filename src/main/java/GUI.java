@@ -29,7 +29,7 @@ public class GUI extends JFrame {
 
     public JButton buttonFileChoose () {
         JButton fileChooseButton = new JButton("Open");
-        fileChooseButton.setPreferredSize(new Dimension(50, 50));
+        fileChooseButton.setPreferredSize(new Dimension(80, 30));
         fileChooseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -45,7 +45,7 @@ public class GUI extends JFrame {
 
     public JButton buttonExecute () {
         JButton executeButton = new JButton("Execute");
-        executeButton.setPreferredSize(new Dimension(50, 50));
+        executeButton.setPreferredSize(new Dimension(80, 30));
         executeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,14 +58,14 @@ public class GUI extends JFrame {
 
     public JButton buttonFileGenerate () {
         JButton generateButton = new JButton("Generate");
-        generateButton.setPreferredSize(new Dimension(50, 50));
+        generateButton.setPreferredSize(new Dimension(80, 30));
         generateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 logic.makeFile(filePath, fileName, extension);
             }
         });
-
+        generateButton.setMargin(new Insets(1,1,1,1));
         return generateButton;
     }
 
