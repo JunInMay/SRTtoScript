@@ -12,7 +12,7 @@ public class GUI extends JFrame {
 
     private Logic logic;
     private File selectedFile;
-    private JTextArea asISTextArea;
+    private JTextArea asIsTextArea;
     private JTextArea toBeTextArea;
     private String lastUsedFolder = ".";
 
@@ -39,12 +39,12 @@ public class GUI extends JFrame {
         mainPanel.add(textAreaPanel, Constraints.TEXTAREA_PANEL_CONSTRAINTS);
 
         // two text areas added
-        JTextArea textArea = new JTextArea();
-        textArea.setMinimumSize(new Dimension(400, 400));
-        textAreaPanel.add(textArea, Constraints.ASIS_TEXTAREA_CONSTRAINTS);
+        asIsTextArea = new JTextArea();
+        asIsTextArea.setMinimumSize(new Dimension(400, 400));
+        textAreaPanel.add(asIsTextArea, Constraints.ASIS_TEXTAREA_CONSTRAINTS);
 
-        JTextArea textArea2 = new JTextArea();
-        textAreaPanel.add(textArea2, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
+        toBeTextArea = new JTextArea();
+        textAreaPanel.add(toBeTextArea, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
 
     }
 
@@ -87,6 +87,17 @@ public class GUI extends JFrame {
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     prefs.put(lastUsedFolder, fileChooser.getSelectedFile().getParent());
+
+                    StringBuilder content = new StringBuilder();
+                    try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))){
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            content.append(line).append(System.lineSeparator());
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    asIsTextArea.setText(content.toString());
                 }
             }
         };
@@ -96,7 +107,7 @@ public class GUI extends JFrame {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(logic.discernSentence(selectedFile));
+                toBeTextArea.setText(logic.discernSentence(selectedFile));
             }
         };
     }
