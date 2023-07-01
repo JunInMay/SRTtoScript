@@ -6,27 +6,35 @@ import java.io.*;
 import java.util.prefs.Preferences;
 
 public class GUI extends JFrame {
-    private Logic logic;
-    private File selectedFile;
-    private JTextField contentTextField;
     private static String filePath = "testFileLocation";
     private static String fileName = "test";
     private static String extension = ".txt";
 
+    private Logic logic;
+    private File selectedFile;
+    private JTextArea asISTextArea;
+    private JTextArea toBeTextArea;
+    private GridBagConstraints constraints;
     private String lastUsedFolder = ".";
 
     public GUI(Logic l) {
         setSize(700, 700);
         setTitle("Frame Test");
-        setLayout(new FlowLayout());
+        setLayout(new GridBagLayout());
         logic = l;
 
+        // Main Panel added
+        constraints = new GridBagConstraints();
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        System.out.println(mainPanel.getInsets());
-        GridBagConstraints constraints = new GridBagConstraints();
-        getContentPane().add(mainPanel);
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.weighty = 1;
+        constraints.weightx = 1;
+        getContentPane().add(mainPanel, constraints);
 
+        // Button Panel added
+        constraints = new GridBagConstraints();
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        constraints.fill = GridBagConstraints.BOTH;
         constraints.gridy = 0;
         constraints.insets = new Insets(5, 0, 5, 0);
         mainPanel.add(buttonPanel, constraints);
@@ -35,15 +43,28 @@ public class GUI extends JFrame {
         buttonPanel.add(button("Execute", actionExecute()));
         buttonPanel.add(button("Generate", actionFileGenerate()));
 
-        JPanel textFieldPanel = new JPanel(new GridLayout(1, 2, 5, 20));
+        // Textarea Panel added
+        JPanel textAreaPanel = new JPanel(new GridBagLayout());
         constraints.gridy = 1;
         constraints.insets = new Insets(0, 0, 0, 0);
-        mainPanel.add(textFieldPanel, constraints);
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        mainPanel.add(textAreaPanel , constraints);
 
-        textFieldPanel.add(textArea(40, 30));
-        textFieldPanel.add(textArea(40, 30));
+        constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.weighty = 1;
+        constraints.weightx = 1;
+        constraints.insets = new Insets(10, 10, 10, 5);
+        constraints.fill = GridBagConstraints.BOTH;
+        JTextArea textArea = new JTextArea();
+        textArea.setMinimumSize(new Dimension(400, 400));
+        textAreaPanel.add(textArea, constraints);
 
-//        mainPanel.add(textField(20));
+        JTextArea textArea2 = new JTextArea();
+        constraints.insets = new Insets(10, 5, 10, 10);
+        constraints.gridx = 1;
+        textAreaPanel.add(textArea2, constraints);
 
     }
 
@@ -65,10 +86,14 @@ public class GUI extends JFrame {
         return new JTextField(width);
     }
 
-    private JTextArea textArea (int rows, int cols) {
+    private JTextArea textArea (int width, int height) {
         JTextArea jTextArea = new JTextArea();
-        jTextArea.setPreferredSize(new Dimension(300, 300));
+        jTextArea.setPreferredSize(new Dimension(width, height));
         return jTextArea;
+    }
+
+    private JTextArea textAreaColRow (int col, int row) {
+        return new JTextArea(col, row);
     }
 
     private ActionListener actionFileChoose() {
