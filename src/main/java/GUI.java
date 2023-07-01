@@ -8,6 +8,7 @@ import java.util.prefs.Preferences;
 public class GUI extends JFrame {
     private Logic logic;
     private File selectedFile;
+    private JTextField contentTextField;
     private static String filePath = "testFileLocation";
     private static String fileName = "test";
     private static String extension = ".txt";
@@ -20,9 +21,30 @@ public class GUI extends JFrame {
         setLayout(new FlowLayout());
         logic = l;
 
-        getContentPane().add(button("Open", actionFileChoose()));
-        getContentPane().add(button("Execute", actionExecute()));
-        getContentPane().add(button("Generate", actionFileGenerate()));
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        System.out.println(mainPanel.getInsets());
+        GridBagConstraints constraints = new GridBagConstraints();
+        getContentPane().add(mainPanel);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        constraints.gridy = 0;
+        constraints.insets = new Insets(5, 0, 5, 0);
+        mainPanel.add(buttonPanel, constraints);
+
+        buttonPanel.add(button("Open", actionFileChoose()));
+        buttonPanel.add(button("Execute", actionExecute()));
+        buttonPanel.add(button("Generate", actionFileGenerate()));
+
+        JPanel textFieldPanel = new JPanel(new GridLayout(1, 2, 5, 20));
+        constraints.gridy = 1;
+        constraints.insets = new Insets(0, 0, 0, 0);
+        mainPanel.add(textFieldPanel, constraints);
+
+        textFieldPanel.add(textArea(40, 30));
+        textFieldPanel.add(textArea(40, 30));
+
+//        mainPanel.add(textField(20));
+
     }
 
     public void engage () {
@@ -37,6 +59,16 @@ public class GUI extends JFrame {
         button.setMargin(new Insets(1, 1, 1, 1));
 
         return button;
+    }
+
+    private JTextField textField (int width) {
+        return new JTextField(width);
+    }
+
+    private JTextArea textArea (int rows, int cols) {
+        JTextArea jTextArea = new JTextArea();
+        jTextArea.setPreferredSize(new Dimension(300, 300));
+        return jTextArea;
     }
 
     private ActionListener actionFileChoose() {
