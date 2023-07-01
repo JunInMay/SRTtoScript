@@ -14,7 +14,6 @@ public class GUI extends JFrame {
     private File selectedFile;
     private JTextArea asISTextArea;
     private JTextArea toBeTextArea;
-    private GridBagConstraints constraints;
     private String lastUsedFolder = ".";
 
     public GUI(Logic l) {
@@ -24,20 +23,12 @@ public class GUI extends JFrame {
         logic = l;
 
         // Main Panel added
-        constraints = new GridBagConstraints();
         JPanel mainPanel = new JPanel(new GridBagLayout());
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        getContentPane().add(mainPanel, constraints);
+        getContentPane().add(mainPanel, Constraints.MAIN_PANEL_CONSTRAINTS);
 
         // Button Panel added
-        constraints = new GridBagConstraints();
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridy = 0;
-        constraints.insets = new Insets(5, 0, 5, 0);
-        mainPanel.add(buttonPanel, constraints);
+        mainPanel.add(buttonPanel, Constraints.BUTTON_PANEL_CONSTRAINTS);
 
         buttonPanel.add(button("Open", actionFileChoose()));
         buttonPanel.add(button("Execute", actionExecute()));
@@ -45,26 +36,15 @@ public class GUI extends JFrame {
 
         // Textarea Panel added
         JPanel textAreaPanel = new JPanel(new GridBagLayout());
-        constraints.gridy = 1;
-        constraints.insets = new Insets(0, 0, 0, 0);
-        constraints.weightx = 1;
-        constraints.weighty = 1;
-        mainPanel.add(textAreaPanel , constraints);
+        mainPanel.add(textAreaPanel, Constraints.TEXTAREA_PANEL_CONSTRAINTS);
 
-        constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.weighty = 1;
-        constraints.weightx = 1;
-        constraints.insets = new Insets(10, 10, 10, 5);
-        constraints.fill = GridBagConstraints.BOTH;
+        // two text areas added
         JTextArea textArea = new JTextArea();
         textArea.setMinimumSize(new Dimension(400, 400));
-        textAreaPanel.add(textArea, constraints);
+        textAreaPanel.add(textArea, Constraints.ASIS_TEXTAREA_CONSTRAINTS);
 
         JTextArea textArea2 = new JTextArea();
-        constraints.insets = new Insets(10, 5, 10, 10);
-        constraints.gridx = 1;
-        textAreaPanel.add(textArea2, constraints);
+        textAreaPanel.add(textArea2, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
 
     }
 
