@@ -47,6 +47,16 @@ public class GUI extends JFrame {
         scrollPane = new JScrollPane(toBeTextArea);
         textAreaPanel.add(scrollPane, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
 
+        // menu bar
+        JMenuBar menuBar = new JMenuBar();
+        getContentPane().add(menuBar);
+        JMenu menu = new JMenu("Menu");
+
+        JMenuItem openItem = new JMenuItem("test");
+        menuBar.add(menu);
+        menu.add(openItem);
+
+        setJMenuBar(menuBar);
     }
 
     public void engage () {
