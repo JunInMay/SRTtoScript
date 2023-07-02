@@ -56,7 +56,7 @@ public class GUI extends JFrame {
 
     private JButton button (String text, ActionListener actionListener) {
         JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(80, 30));
+        button.setPreferredSize(new Dimension(80, 20));
         button.addActionListener(actionListener);
         button.setMargin(new Insets(1, 1, 1, 1));
 
