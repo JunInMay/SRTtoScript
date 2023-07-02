@@ -40,11 +40,12 @@ public class GUI extends JFrame {
 
         // two text areas added
         asIsTextArea = new JTextArea();
-        asIsTextArea.setMinimumSize(new Dimension(400, 400));
-        textAreaPanel.add(asIsTextArea, Constraints.ASIS_TEXTAREA_CONSTRAINTS);
+        JScrollPane scrollPane = new JScrollPane(asIsTextArea);
+        textAreaPanel.add(scrollPane, Constraints.ASIS_TEXTAREA_CONSTRAINTS);
 
         toBeTextArea = new JTextArea();
-        textAreaPanel.add(toBeTextArea, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
+        scrollPane = new JScrollPane(toBeTextArea);
+        textAreaPanel.add(scrollPane, Constraints.TOBE_TEXTAREA_CONSTRAINTS);
 
     }
 
