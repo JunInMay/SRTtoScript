@@ -80,16 +80,6 @@ public class GUI extends JFrame {
         return menuItem;
     }
 
-    private JTextField textField (int width) {
-        return new JTextField(width);
-    }
-
-    private JTextArea textArea (int width, int height) {
-        JTextArea jTextArea = new JTextArea();
-        jTextArea.setPreferredSize(new Dimension(width, height));
-        return jTextArea;
-    }
-
     private JTextArea textAreaColRow (int col, int row) {
         return new JTextArea(col, row);
     }
