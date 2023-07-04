@@ -125,7 +125,7 @@ public class Logic {
         File[] files = directory.listFiles();
 
         int max = 0;
-        Pattern pattern = Pattern.compile(fileName + "_(\\d+)" + extension);
+        Pattern pattern = Pattern.compile(Pattern.quote(fileName) + "_(\\d+)" + extension);
 
         if (files != null) {
             for (File file : files) {

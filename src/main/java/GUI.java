@@ -7,7 +7,7 @@ import java.util.prefs.Preferences;
 
 public class GUI extends JFrame {
     private static String filePath = "testFileLocation";
-    private static String fileName = "test";
+    private static String fileName;
     private static String extension = ".txt";
 
     private Logic logic;
@@ -106,6 +106,18 @@ public class GUI extends JFrame {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
+
+                    String fileNameWithExtension = selectedFile.getName();
+
+                    // Separate file name and extension
+                    int dotIndex = fileNameWithExtension.lastIndexOf('.');
+                    if(dotIndex >= 0) {
+                        // Get file name without extension
+                        fileName = fileNameWithExtension.substring(0, dotIndex);
+                    } else {
+                        fileName = fileNameWithExtension;
+                    }
+
                     asIsTextArea.setText(content.toString());
                     toBeTextArea.setText(logic.discernSentence(selectedFile));
                     fileOpened = true;
