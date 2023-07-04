@@ -15,6 +15,7 @@ public class GUI extends JFrame {
     private JTextArea asIsTextArea;
     private JTextArea toBeTextArea;
     private String lastUsedFolder = ".";
+    private boolean fileOpened = false;
 
     public GUI(Logic l) {
         setSize(700, 700);
@@ -107,6 +108,7 @@ public class GUI extends JFrame {
                     }
                     asIsTextArea.setText(content.toString());
                     toBeTextArea.setText(logic.discernSentence(selectedFile));
+                    fileOpened = true;
                 }
             }
         };
@@ -116,7 +118,11 @@ public class GUI extends JFrame {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                logic.makeFile(filePath, fileName, extension);
+                if (fileOpened) {
+                    logic.makeFile(filePath, fileName, extension, asIsTextArea.getText());
+                } else {
+                    // Alert
+                }
             }
         };
     }

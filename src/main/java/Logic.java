@@ -67,7 +67,7 @@ public class Logic {
      * makes Files that will contain the texts which were from the .srt file.
      * - if the filename exists, then generate next name adding '_number' at the end of the file's name. (Ex. test.txt --> test_1.txt)
      */
-    void makeFile (String filePath, String fileName, String extension) {
+    void makeFile (String filePath, String fileName, String extension, String content) {
         String filePathWithName = new StringBuilder()
                 .append(filePath)
                 .append('\\')
@@ -91,11 +91,18 @@ public class Logic {
 
             if (txtFile.createNewFile()) {
                 System.out.println("File created : " + txtFile.getName());
+                writeFile(filePathWithName, content);
             } else {
                 System.out.println("File creation failed");
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void writeFile (String filePath, String content) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileWriter(filePath, true))) {
+            out.println(content);
         }
     }
 
