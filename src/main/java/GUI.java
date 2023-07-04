@@ -31,7 +31,6 @@ public class GUI extends JFrame {
         mainPanel.add(buttonPanel, Constraints.BUTTON_PANEL_CONSTRAINTS);
 
         buttonPanel.add(button("Open", actionFileChoose()));
-        buttonPanel.add(button("Execute", actionExecute()));
         buttonPanel.add(button("Generate", actionFileGenerate()));
 
         // Textarea Panel added
@@ -54,7 +53,8 @@ public class GUI extends JFrame {
 
         JMenuItem openItem = new JMenuItem("test");
         menuBar.add(menu);
-        menu.add(openItem);
+        menu.add(menuItem("Open", actionFileChoose()));
+        menu.add(menuItem("Generate", actionFileGenerate()));
 
         setJMenuBar(menuBar);
     }
@@ -71,6 +71,13 @@ public class GUI extends JFrame {
         button.setMargin(new Insets(1, 1, 1, 1));
 
         return button;
+    }
+
+    private JMenuItem menuItem (String text, ActionListener actionListener) {
+        JMenuItem menuItem = new JMenuItem(text);
+        menuItem.addActionListener(actionListener);
+
+        return menuItem;
     }
 
     private JTextField textField (int width) {
@@ -109,16 +116,8 @@ public class GUI extends JFrame {
                         ex.printStackTrace();
                     }
                     asIsTextArea.setText(content.toString());
+                    toBeTextArea.setText(logic.discernSentence(selectedFile));
                 }
-            }
-        };
-    }
-
-    private ActionListener actionExecute() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toBeTextArea.setText(logic.discernSentence(selectedFile));
             }
         };
     }
