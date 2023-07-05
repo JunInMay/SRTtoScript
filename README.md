@@ -55,9 +55,8 @@ And so I always joke when I'm preaching that I got the peas mixed up.
 3. Utilize the StanfordCoreNLP library to identify sentences and consolidate the words together.
 
 # Todo
-1. Being able to process .srt files directly from YouTube by using YouTube API
-2. Designing
-3. Trivial details
+1. Designing
+2. Trivial details
 
 # Libraries
 - StanfordCoreNLP
