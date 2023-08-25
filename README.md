@@ -55,8 +55,10 @@ And so I always joke when I'm preaching that I got the peas mixed up.
 3. Utilize the StanfordCoreNLP library to identify sentences and consolidate the words together.
 
 # Todo
-1. Designing
-2. Trivial details
+1. Design the GUI
+2. Handle Trivial details
+3. Create Alerts for Each Operation
+4. Implement Log Printing
 
 # Libraries
 - StanfordCoreNLP
