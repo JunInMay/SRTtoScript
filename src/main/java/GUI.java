@@ -149,7 +149,7 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (fileOpened) {
-                    logic.makeFile(filePath, fileName, extension, asIsTextArea.getText());
+                    logic.makeFile(filePath, fileName, extension, toBeTextArea.getText());
                 } else {
                     // Alert
                 }
