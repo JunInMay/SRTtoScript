@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.prefs.Preferences;
 
 public class GUI extends JFrame {
-    private static String filePath = "testFileLocation";
+    private static String filePath = "target";
     private static String fileName;
     private static String extension = ".txt";
 
@@ -85,6 +85,12 @@ public class GUI extends JFrame {
         return new JTextArea(col, row);
     }
 
+    /**
+     * @author Chana
+     * @description
+     * generate choosing file event when a button clicked.
+     * @return
+     */
     private ActionListener actionFileChoose() {
         return new ActionListener() {
             @Override
@@ -126,6 +132,12 @@ public class GUI extends JFrame {
         };
     }
 
+    /**
+     * @author Chana
+     * @description
+     * generate creating file event when a button clicked.
+     * @return
+     */
     private ActionListener actionFileGenerate() {
         return new ActionListener() {
             @Override

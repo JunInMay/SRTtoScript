@@ -4,6 +4,9 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -66,6 +69,7 @@ public class Logic {
      * @description
      * makes Files that will contain the texts which were from the .srt file.
      * - if the filename exists, then generate next name adding '_number' at the end of the file's name. (Ex. test.txt --> test_1.txt)
+     * - if the directory for the file doesn't exist, then it creates the directory first.
      */
     void makeFile (String filePath, String fileName, String extension, String content) {
         String filePathWithName = new StringBuilder()
@@ -77,6 +81,11 @@ public class Logic {
 
         // set the file path
         try {
+            Path directoryPath = Paths.get(filePath);
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
+            }
+
             File txtFile = new File(filePathWithName);
             if (txtFile.exists()) {
                 String nextFileName = getNextFileName(filePath, fileName, extension);
@@ -169,13 +178,6 @@ public class Logic {
         }
 
         return sb.toString();
-    }
-
-    void logic () {
-//        discernSentence();
-//        makeFile();
-//
-
     }
 
 }
