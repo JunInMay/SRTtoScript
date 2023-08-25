@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +9,9 @@ import java.io.*;
 import java.util.prefs.Preferences;
 
 public class GUI extends JFrame {
-    private static String filePath = "target";
+    private static final Logger logger = LogManager.getLogger(GUI.class);
+
+    private static String filePath = "files";
     private static String fileName;
     private static String extension = ".txt";
 
@@ -58,6 +63,7 @@ public class GUI extends JFrame {
         menu.add(menuItem("Generate", actionFileGenerate()));
 
         setJMenuBar(menuBar);
+        logger.info("GUI rendered");
     }
 
     public void engage () {
