@@ -24,7 +24,7 @@ public class GUI extends JFrame {
 
     public GUI(Logic l) {
         setSize(700, 700);
-        setTitle("Frame Test");
+        setTitle("SRTtoScript");
         setLayout(new GridBagLayout());
         logic = l;
 
