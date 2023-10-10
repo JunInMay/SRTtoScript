@@ -152,6 +152,7 @@ public class GUI extends JFrame {
                     logic.makeFile(filePath, fileName, extension, toBeTextArea.getText());
                 } else {
                     // Alert
+                    JOptionPane.showMessageDialog(null, "파일이 선택되지 않았습니다. 파일을 먼저 선택해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
