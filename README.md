@@ -44,6 +44,16 @@ I wanted to be a police officer.
 And so I always joke when I'm preaching that I got the peas mixed up.
 ```
 
+# How to use
+
+To Untilize this application, ensure you have Java installed. Follow the steps below:
+
+1. Launch the application.
+2. Click the `Open` button.
+3. Navigate to and select the desired `.srt` file.
+4. Click the `Generate` button
+5. Retrieve the refined file from the `/files` directory.
+
 # Features
 - makes pure .srt file into .txt file containing sentences only
 - shows AsIs .srt file and ToBe .txt file
